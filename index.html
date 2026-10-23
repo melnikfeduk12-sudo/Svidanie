@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#063d27" />
+  <title>Приглашение на партию 🎱</title>
+  <style>
+    :root {
+      --felt: #0b5d3b;
+      --felt-dark: #063d27;
+      --cream: #f6f1df;
+      --gold: #e7c86b;
+      --gold-dark: #a88d3d;
+      --ink: #122018;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100dvh;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding:
+        calc(16px + env(safe-area-inset-top))
+        calc(16px + env(safe-area-inset-right))
+        calc(16px + env(safe-area-inset-bottom))
+        calc(16px + env(safe-area-inset-left));
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--cream);
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,.08), transparent 25%),
+        radial-gradient(circle at 80% 90%, rgba(0,0,0,.35), transparent 35%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,.025) 0 1px, transparent 1px 8px),
+        linear-gradient(135deg, var(--felt), var(--felt-dark));
+      background-attachment: fixed;
+      overflow-x: hidden;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 460px;
+      position: relative;
+      padding: 28px 20px 24px;
+      border-radius: 24px;
+      background: rgba(4, 38, 24, .78);
+      border: 1px solid rgba(246, 241, 223, .18);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-align: center;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border: 1px dashed rgba(231, 200, 107, .22);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(231, 200, 107, .12);
+      border: 1px solid rgba(231, 200, 107, .35);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -.03em;
+      font-weight: 800;
+    }
+
+    h1 span {
+      color: var(--gold);
+      display: inline-block;
+      transform: rotate(-2deg);
+    }
+
+    .lead {
+      margin: 0 auto 8px;
+      max-width: 380px;
+      font-size: 16px;
+      line-height: 1.5;
+      color: rgba(246, 241, 223, .9);
+    }
+
+    .lead strong {
+      color: var(--cream);
+    }
+
+    .balls {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 18px 0 22px;
+    }
+
+    .ball {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      position: relative;
+      box-shadow:
+        inset -5px -6px 10px rgba(0,0,0,.3),
+        inset 4px 4px 8px rgba(255,255,255,.35),
+        0 6px 12px rgba(0,0,0,.3);
+      animation: bob 2.4s ease-in-out infinite;
+    }
+
+    .ball::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fff;
+      top: 8px;
+      left: 8px;
+      opacity: .85;
+    }
+
+    .ball:nth-child(1) { background: #f2c94c; animation-delay: 0s; }
+    .ball:nth-child(2) { background: #2f80ed; animation-delay: .15s; }
+    .ball:nth-child(3) { background: #eb5757; animation-delay: .3s; }
+    .ball:nth-child(4) { background: #9b51e0; animation-delay: .45s; }
+    .ball:nth-child(5) { background: #111; animation-delay: .6s; }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-6px) rotate(4deg); }
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: 0;
+      border-radius: 16px;
+      padding: 18px 20px;
+      font-size: 17px;
+      font-weight: 700;
+      min-height: 56px;
+      width: 100%;
+      touch-action: manipulation;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+    }
+
+    button:active { transform: translateY(2px) scale(.99); }
+
+    .yes {
+      background: var(--gold);
+      color: var(--ink);
+      box-shadow: 0 6px 0 var(--gold-dark), 0 12px 20px rgba(0,0,0,.3);
+    }
+
+    .yes:active {
+      box-shadow: 0 3px 0 var(--gold-dark), 0 6px 12px rgba(0,0,0,.3);
+    }
+
+    .no {
+      background: rgba(246, 241, 223, .08);
+      color: var(--cream);
+      border: 1px solid rgba(246, 241, 223, .22);
+    }
+
+    .no:active { background: rgba(246, 241, 223, .16); }
+
+    .hint {
+      margin-top: 16px;
+      font-size: 12px;
+      line-height: 1.4;
+      color: rgba(246, 241, 223, .55);
+    }
+
+    /* Модалка — bottom sheet на телефоне */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(0, 0, 0, .62);
+      z-index: 10;
+      padding: 0;
+    }
+
+    .modal.open { display: flex; }
+
+    .modal-card {
+      width: 100%;
+      max-width: 460px;
+      max-height: 92dvh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+      padding:
+        22px
+        20px
+        calc(22px + env(safe-area-inset-bottom));
+      border-radius: 24px 24px 0 0;
+      background: var(--cream);
+      color: var(--ink);
+      text-align: left;
+      box-shadow: 0 -20px 60px rgba(0,0,0,.5);
+      animation: slideUp .28s cubic-bezier(.2,.8,.2,1);
+      -webkit-user-select: text;
+      user-select: text;
+    }
+
+    .modal-card::before {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(18, 32, 24, .18);
+      margin: -8px auto 14px;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-card h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      padding-right: 32px;
+    }
+
+    .modal-card p, .modal-card li {
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .modal-card p { margin: 0 0 12px; }
+
+    .modal-card ul {
+      padding-left: 20px;
+      margin: 4px 0 16px;
+    }
+
+    .modal-card ul li { margin-bottom: 6px; }
+
+    .details {
+      display: grid;
+      gap: 10px;
+      margin: 14px 0;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(11, 93, 59, .08);
+      border: 1px solid rgba(11, 93, 59, .16);
+    }
+
+    .details div { font-size: 15px; line-height: 1.4; }
+    .details strong { color: #0b5d3b; }
+
+    .close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 40px;
+      height: 40px;
+      min-height: 40px;
+      padding: 0;
+      border-radius: 50%;
+      background: rgba(18, 32, 24, .08);
+      color: var(--ink);
+      font-size: 20px;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      width: 40px;
+    }
+
+    .falling {
+      position: fixed;
+      top: -40px;
+      z-index: 20;
+      pointer-events: none;
+      font-size: 24px;
+      animation: fall 2.6s linear forwards;
+      will-change: transform;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110dvh) rotate(720deg);
+        opacity: .9;
+      }
+    }
+
+    /* Очень маленькие экраны */
+    @media (max-width: 360px) {
+      h1 { font-size: 30px; }
+      .ball { width: 30px; height: 30px; }
+      .ball::after { width: 10px; height: 10px; top: 7px; left: 7px; }
+    }
+
+    /* Телефон в горизонтали — компактнее */
+    @media (max-height: 640px) and (orientation: landscape) {
+      .balls { margin: 10px 0 14px; }
+      .lead { font-size: 14px; }
+      h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="eyebrow">официальное приглашение</div>
+
+    <h1>Партия <span>на двоих</span> 🎱</h1>
+
+    <p class="lead">
+      Софья Николаевна, у меня есть кий, стол и подозрительно много свободного времени.
+      Не хватает только соперницы, которая будет делать вид, что не специально меня обыгрывает.
+    </p>
+
+    <div class="balls" aria-hidden="true">
+      <div class="ball"></div>
+      <div class="ball"></div>
+      <div class="ball"></div>
+      <div class="ball"></div>
+      <div class="ball"></div>
+    </div>
+
+    <div class="buttons">
+      <button class="yes" id="yesBtn">Принимаю вызов</button>
+      <button class="no" id="noBtn">У меня есть отмазка</button>
+    </div>
+
+    <div class="hint">* Проигравший покупает кофе. Победитель не хвастается дольше 5 минут.</div>
+  </main>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button class="close" id="closeBtn" aria-label="Закрыть">×</button>
+      <h2 id="modalTitle">Отлично, Софья Николаевна! 👇</h2>
+      <p>Я уже морально готов проиграть, но хотя бы выглядеть буду уверенно.</p>
+
+      <div class="details">
+        <div><strong>Дата:</strong> 23.10</div>
+        <div><strong>Время:</strong> 19:00 — я заеду</div>
+        <div><strong>Формат:</strong> 1 партия. Проигравший покупает кофе/лимонад.</div>
+      </div>
+
+      <p><strong>Правила вечера:</strong></p>
+      <ul>
+        <li>Я не хвастаюсь, если случайно забью шар.</li>
+        <li>Ты не смеёшься надо мной дольше 10 секунд подряд.</li>
+        <li>Главный приз — хороший вечер, а не победа.</li>
+      </ul>
+
+      <p>Напиши «беру кий» в ответ — и я забронирую стол.</p>
+    </div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const modal = document.getElementById('modal');
+    const closeBtn = document.getElementById('closeBtn');
+
+    const isTouch = window.matchMedia('(hover: none)').matches;
+
+    function buzz(ms = 15) {
+      if (isTouch && 'vibrate' in navigator) {
+        try { navigator.vibrate(ms); } catch (e) {}
+      }
+    }
+
+    const excuses = [
+      'У меня есть отмазка',
+      'А если я поддамся?',
+      'Там есть лимонад?',
+      'Ладно, уговорил(а) 😄'
+    ];
+
+    let excuseIndex = 0;
+
+    noBtn.addEventListener('click', () => {
+      buzz(10);
+      excuseIndex = (excuseIndex + 1) % excuses.length;
+      noBtn.textContent = excuses[excuseIndex];
+
+      if (excuseIndex === excuses.length - 1) {
+        noBtn.style.background = 'rgba(231, 200, 107, .18)';
+        noBtn.style.borderColor = 'rgba(231, 200, 107, .5)';
+      }
+    });
+
+    function openModal() {
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    yesBtn.addEventListener('click', () => {
+      buzz(25);
+      openModal();
+      makeConfetti();
+    });
+
+    closeBtn.addEventListener('click', () => {
+      buzz(8);
+      closeModal();
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    function makeConfetti() {
+      const symbols = ['🎱', '🎉', '🟡', '🔵', '🔴', '🟣'];
+      const count = isTouch ? 16 : 28;
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('span');
+        el.className = 'falling';
+        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.animationDelay = Math.random() * 0.5 + 's';
+        el.style.fontSize = (18 + Math.random() * 16) + 'px';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 3400);
+      }
+    }
+  </script>
+</body>
+</html>
